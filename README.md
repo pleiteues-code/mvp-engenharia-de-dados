@@ -137,7 +137,20 @@ Fundos com taxas acima de 1.0 raramente têm boa eficiência.
 - Sharpe mede eficiência, não retorno bruto  
 - Fundos de renda fixa (Debt) foram os mais eficientes  
 - Custos mais altos reduzem a eficiência dos fundos  
+---
 
+## 🧭 Autoavaliação
+
+- Todas as perguntas de negócio foram respondidas com base nas tabelas Gold.  
+- A arquitetura Bronze–Silver–Gold foi implementada corretamente.  
+- O dataset escolhido foi adequado ao escopo do MVP.  
+- A limpeza e padronização dos dados foram suficientes para garantir qualidade analítica.  
+- A ausência de gráficos não prejudicou a interpretação dos resultados.  
+- Caso o projeto fosse evoluído, eu adicionaria:
+  - automação do pipeline  
+  - dashboards visuais  
+  - ingestão contínua  
+  - mais fontes de dados  
 ---
 
 ## 🛠️ Tecnologias Utilizadas
