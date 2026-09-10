@@ -15,6 +15,28 @@ Este projeto foi desenvolvido para responder **quatro perguntas fundamentais** s
 Essas perguntas orientam toda a arquitetura Bronze–Silver–Gold e justificam a escolha do dataset.
 
 ---
+## 📁 Estrutura do Diretório
+
+- mvp-engenharia-de-dados/ — diretório raiz do projeto
+
+- data/ — pasta com os dados utilizados no MVP
+  - comprehensive_mutual_funds_data.csv — dataset original dos fundos
+  - .gitkeep — mantém a pasta visível no GitHub
+
+- notebooks/ — pasta com os notebooks do pipeline
+  - 01_bronze_ingestao_fundos.py — ingestão dos dados brutos (Bronze)
+  - 02_silver_tratamento_fundos.py — limpeza e padronização (Silver)
+  - 03_gold_modelagem_analises.py — métricas e modelagem (Gold)
+  - 04_analises_relatorio_final.py — análises e conclusões finais
+  - .gitkeep — mantém a pasta visível no GitHub
+
+- README.md — documentação principal do projeto
+
+
+
+
+
+---
 
 ## 📂 Dataset Utilizado
 
