@@ -58,6 +58,7 @@ Fundos com taxas menores (0.05–0.10) aparecem entre os mais eficientes.
 Fundos com taxas acima de 1.0 raramente têm boa eficiência.
 
 📁 Notebooks do Projeto
+
 01_bronze_ingestao
 Leitura dos dados brutos
 
