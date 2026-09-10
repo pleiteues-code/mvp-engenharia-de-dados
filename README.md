@@ -1,5 +1,6 @@
 # mvp-engenharia-de-dados
 MVP da disciplina Engenharia de Dados (40530010055_20260_01) – análise de fundos de investimento
+
 🧩 Visão Geral
 Este projeto implementa uma arquitetura Bronze → Silver → Gold para análise de fundos de investimento, utilizando Databricks e PySpark.
 O objetivo é responder quatro perguntas de negócio relacionadas a risco, retorno, eficiência e categorias de fundos.
