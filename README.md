@@ -221,22 +221,8 @@ O projeto documenta todo o processo de ponta a ponta e serve como referência pa
 
 # 🧭 Autoavaliação
 
-Este MVP cumpriu integralmente o objetivo proposto na disciplina, implementando um pipeline funcional e respondendo às quatro perguntas de negócio com base em dados reais. A seguir, minha autoavaliação sobre o trabalho desenvolvido:
+O MVP atingiu os principais objetivos propostos, permitindo implementar o pipeline e realizar análises sobre as quatro perguntas de negócio. Como limitações, destacam-se a ausência de automação, a utilização de uma única fonte de dados e a necessidade de ampliar as validações de qualidade e as visualizações
 
-### ✔ O que foi bem executado
-- A arquitetura **Bronze → Silver → Gold** foi aplicada corretamente e de forma clara.
-- Todas as perguntas de negócio foram respondidas com base nas tabelas Gold.
-- O dataset escolhido foi adequado ao escopo do MVP e permitiu análises relevantes.
-- A limpeza e padronização dos dados garantiram qualidade suficiente para análises estatísticas.
-- Os notebooks foram organizados de maneira sequencial e coerente com o fluxo do pipeline.
-- As evidências (prints) documentam cada etapa da execução no Databricks.
-
-### 🔧 Pontos que poderiam ser aprimorados
-- Inclusão de gráficos e visualizações para enriquecer a interpretação dos resultados.
-- Automação do pipeline (jobs, triggers, workflows).
-- Ingestão contínua ou incremental dos dados.
-- Integração com outras fontes externas para análises mais robustas.
-- Criação de dashboards (Power BI, Databricks SQL, etc.) para apresentação executiva.
 
 ### 🚀 Possíveis evoluções futuras
 - Implementar orquestração com Databricks Workflows ou Apache Airflow.
