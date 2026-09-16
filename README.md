@@ -73,7 +73,8 @@ O objetivo é responder quatro perguntas de negócio relacionadas a:
 ### 🔶 Bronze — Dados Brutos
 - Ingestão dos dados originais de fundos  
 - Nenhuma transformação aplicada  
-- Armazenamento fiel da fonte  
+- Armazenamento fiel da fonte
+- O arquivo CSV foi obtido do Kaggle e carregado no ambiente Databricks. A partir do arquivo disponibilizado no diretório de dados, o notebook 01_bronze_ingestao_fundos.py realizou a leitura e persistiu os dados na camada Bronze em formato Delta.  
 
 ---
 
