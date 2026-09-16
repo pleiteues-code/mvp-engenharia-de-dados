@@ -7,7 +7,7 @@ Disciplina: Engenharia de Dados (40530010055_20260_01)
 
 Investidores e analistas precisam comparar fundos de investimento considerando não apenas o retorno histórico, mas também o risco assumido e os custos envolvidos. Decisões baseadas apenas em retorno bruto podem levar a escolhas ineficientes, especialmente quando taxas elevadas reduzem o ganho líquido ou quando o risco é desproporcional ao retorno.
 
-Este MVP constrói um pipeline de dados na nuvem para organizar, tratar e analisar informações de fundos de investimento, permitindo avaliar relações entre risco, retorno, categoria e custo, de forma estruturada e reproduzível.
+Este MVP implementa um pipeline de dados na nuvem para organizar, tratar e analisar informações de fundos de investimento, permitindo avaliar relações entre risco, retorno, categoria e custo, de forma estruturada e reproduzível.
 
 ---
 
@@ -23,21 +23,23 @@ Este projeto foi desenvolvido para responder **quatro perguntas fundamentais** s
 Essas perguntas orientam toda a arquitetura Bronze–Silver–Gold e justificam a escolha do dataset.
 
 ---
-## 📁 Estrutura do Diretório
+## 📁 Estrutura do Projeto
 
 - mvp-engenharia-de-dados/ — diretório raiz do projeto
 
 - data/ — pasta com os dados utilizados no MVP
   - comprehensive_mutual_funds_data.csv — dataset original dos fundos
-  - .gitkeep — mantém a pasta visível no GitHub
+  
 
 - notebooks/ — pasta com os notebooks do pipeline
   - 01_bronze_ingestao_fundos.py — ingestão dos dados brutos (Bronze)
   - 02_silver_tratamento_fundos.py — limpeza e padronização (Silver)
   - 03_gold_modelagem_analises.py — métricas e modelagem (Gold)
   - 04_analises_relatorio_final.py — análises e conclusões finais
-  - .gitkeep — mantém a pasta visível no GitHub
-
+  
+    
+- evidencias/ - prints do pipeline
+  
 - README.md — documentação principal do projeto
 
 ## 📥 Coleta dos Dados
@@ -52,52 +54,7 @@ O dataset utilizado neste MVP é o **Comprehensive Mutual Funds Dataset**, dispo
 - **Registros:** ~1.800 fundos
 - **Colunas:** 14 atributos financeiros (retorno, risco, categoria, taxa, etc.)
 
-### 📌 Como os dados foram coletados
-
-O arquivo CSV foi baixado manualmente do Kaggle e utilizado como fonte bruta para a camada Bronze.  
-Nenhuma transformação foi aplicada antes da ingestão.
-
-### ☁️ Como o dataset chegou ao Databricks
-
-O arquivo `comprehensive_mutual_funds_data.csv` foi enviado manualmente para o Databricks através da interface:
-
-**Data → Add Data → Upload File → Create Table**
-
-Após o upload, o Databricks criou automaticamente a tabela Bronze:
-
----
-
-## 📂 Dataset Utilizado
-
-O dataset escolhido contém informações de fundos de investimento, incluindo:
-
-- nome do fundo (`scheme_name`)  
-- categoria (`category`)  
-- taxa de administração (`expense_ratio`)  
-- retorno em 1 ano (`returns_1yr`)  
-- métricas calculadas (Sharpe, risco, eficiência)
-
-### ✔ Por que este dataset foi escolhido?
-
-- Ele possui **variáveis essenciais** para análises de risco, retorno e eficiência.  
-- Permite calcular métricas financeiras clássicas (Sharpe, desvio padrão, retorno ajustado ao risco).  
-- Contém **categorias distintas** (Debt, Equity, Hybrid, Other), possibilitando comparações.  
-- É um dataset **simples, limpo e adequado para um MVP**, sem necessidade de grandes integrações externas.  
-- Permite responder diretamente às quatro perguntas de negócio da disciplina.
-
----
-
-Essa tabela representa os dados exatamente como vieram da fonte, sem qualquer alteração.
-
-### 📸 Evidências (serão adicionadas posteriormente)
-
-- Upload do arquivo no Databricks  
-- Tabela Bronze criada  
-- Visualização da tabela no Data Explorer
-
----
-
-## 🧩 Visão Geral
+## 🧩 Visão Geral da Arquitetura
 Este projeto implementa uma arquitetura **Bronze → Silver → Gold** para análise de fundos de investimento utilizando **Databricks + PySpark**.
 
 O objetivo é responder quatro perguntas de negócio relacionadas a:
@@ -139,8 +96,7 @@ Criação das tabelas analíticas:
 Cada tabela responde diretamente a uma pergunta de negócio.
 
 ---
-
-## 📊 Perguntas Respondidas
+## 📊 Resultado das Perguntas
 
 ### **1️⃣ Fundos com maior risco têm maior retorno?**
 **Não.**  
@@ -168,6 +124,7 @@ Fundos com taxas acima de 1.0 raramente têm boa eficiência.
 
 ---
 
+
 ## 📁 Notebooks do Projeto
 
 ### `01_bronze_ingestao`
@@ -190,36 +147,6 @@ Fundos com taxas acima de 1.0 raramente têm boa eficiência.
 - Análise das categorias  
 - Avaliação da eficiência  
 - Conclusões finais  
-
----
-
-## 📌 Conclusões Gerais
-- Risco não se traduz automaticamente em retorno  
-- Sharpe mede eficiência, não retorno bruto  
-- Fundos de renda fixa (Debt) foram os mais eficientes  
-- Custos mais altos reduzem a eficiência dos fundos  
----
-
-## 🧭 Autoavaliação
-
-- Todas as perguntas de negócio foram respondidas com base nas tabelas Gold.  
-- A arquitetura Bronze–Silver–Gold foi implementada corretamente.  
-- O dataset escolhido foi adequado ao escopo do MVP.  
-- A limpeza e padronização dos dados foram suficientes para garantir qualidade analítica.  
-- A ausência de gráficos não prejudicou a interpretação dos resultados.  
-- Caso o projeto fosse evoluído, eu adicionaria:
-  - automação do pipeline  
-  - dashboards visuais  
-  - ingestão contínua  
-  - mais fontes de dados  
----
-
-## 🛠️ Tecnologias Utilizadas
-- Databricks  
-- PySpark  
-- Delta Lake  
-- Spark SQL  
-- Python  
 
 ---
 ## 📸 Evidências do MVP — Engenharia de Dados
@@ -286,5 +213,39 @@ As evidências comprovam:
 - ✅ Execução completa dos notebooks  
 - ✅ Análises quantitativas respondendo às perguntas de negócio  
 
-Este repositório documenta todo o processo de ponta a ponta, servindo como referência para projetos futuros de engenharia de dados.
+O projeto documenta todo o processo de ponta a ponta e serve como referência para futuros trabalhos de engenharia de dados.
 
+
+# 🧭 Autoavaliação
+
+Este MVP cumpriu integralmente o objetivo proposto na disciplina, implementando um pipeline funcional e respondendo às quatro perguntas de negócio com base em dados reais. A seguir, minha autoavaliação sobre o trabalho desenvolvido:
+
+### ✔ O que foi bem executado
+- A arquitetura **Bronze → Silver → Gold** foi aplicada corretamente e de forma clara.
+- Todas as perguntas de negócio foram respondidas com base nas tabelas Gold.
+- O dataset escolhido foi adequado ao escopo do MVP e permitiu análises relevantes.
+- A limpeza e padronização dos dados garantiram qualidade suficiente para análises estatísticas.
+- Os notebooks foram organizados de maneira sequencial e coerente com o fluxo do pipeline.
+- As evidências (prints) documentam cada etapa da execução no Databricks.
+
+### 🔧 Pontos que poderiam ser aprimorados
+- Inclusão de gráficos e visualizações para enriquecer a interpretação dos resultados.
+- Automação do pipeline (jobs, triggers, workflows).
+- Ingestão contínua ou incremental dos dados.
+- Integração com outras fontes externas para análises mais robustas.
+- Criação de dashboards (Power BI, Databricks SQL, etc.) para apresentação executiva.
+
+### 🚀 Possíveis evoluções futuras
+- Implementar orquestração com Databricks Workflows ou Apache Airflow.
+- Criar um modelo preditivo para estimar retorno ajustado ao risco.
+- Adicionar testes automatizados para validação das transformações.
+- Expandir o projeto para múltiplos datasets financeiros.
+
+## 🛠️ Tecnologias Utilizadas
+- Databricks  
+- PySpark  
+- Delta Lake  
+- Spark SQL  
+- Python  
+
+---
