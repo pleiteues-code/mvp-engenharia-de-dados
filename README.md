@@ -9,6 +9,7 @@ Investidores e analistas precisam comparar fundos de investimento considerando n
 
 Este MVP implementa um pipeline de dados na nuvem para organizar, tratar e analisar informações de fundos de investimento, permitindo avaliar relações entre risco, retorno, categoria e custo, de forma estruturada e reproduzível.
 
+Problema: compreender como risco, retorno, categoria e custos se relacionam no desempenho dos fundos de investimento analisados.
 ---
 
 ## 🎯 Perguntas de Negócio (Objetivo do MVP)
