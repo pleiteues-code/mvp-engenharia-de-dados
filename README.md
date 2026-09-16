@@ -222,4 +222,69 @@ Fundos com taxas acima de 1.0 raramente têm boa eficiência.
 - Python  
 
 ---
+## 📸 Evidências do MVP — Engenharia de Dados
+
+Todas as imagens abaixo foram geradas durante a execução do pipeline no Databricks, documentando cada etapa da arquitetura **Bronze → Silver → Gold → Análises**.
+
+---
+
+### 🟤 Etapa Bronze — Ingestão dos Dados
+Leitura e visualização inicial da tabela bruta.
+
+![Tabela Bronze](./evidencias/01_databricks_comprehensive_mutual_funds_data.png)
+
+---
+
+### ⚪ Etapa Silver — Tratamento e Padronização
+Transformação dos dados brutos em dados limpos e prontos para análise.
+
+![Tabela Silver](./evidencias/02_silver.png)
+
+---
+
+### 🟡 Etapa Gold — Modelagem Analítica
+Criação das tabelas analíticas com métricas de risco, retorno e eficiência.
+
+![Gold - Sharpe x Retorno](./evidencias/03_gold_sharpe_retorno.png)
+![Gold - Categoria](./evidencias/04_gold_categoria.png)
+![Gold - Eficiência](./evidencias/05_gold_eficiencia.png)
+![Gold - Risco x Retorno](./evidencias/06_gold_risco_retorno.png)
+
+---
+
+### 📚 Catálogo Completo
+Visualização do schema `default` com todas as tabelas criadas.
+
+![Catálogo Completo](./evidencias/07_catalogo_completo.png)
+
+---
+
+### ⚙️ Execução dos Notebooks
+Evidências da execução das etapas do pipeline no Databricks.
+
+![Notebook Bronze](./evidencias/08_notebook_bronze.png)
+![Notebook Silver](./evidencias/09_notebook_silver.png)
+![Notebook Gold](./evidencias/10_notebook_gold.png)
+![Notebook Análises](./evidencias/11_notebook_analises_relatorio_final.png)
+
+---
+
+### 📊 Análises e Conclusões
+Resultados das correlações e análises finais.
+
+![Correlação Risco x Retorno](./evidencias/12_AN_correlacao_risco_retorno.png)
+![Correlação Sharpe x Retorno](./evidencias/13_AN_correlacao_sharpe_retorno.png)
+
+---
+
+## 🧩 Conclusão Geral
+
+O pipeline foi executado com sucesso, demonstrando a aplicação prática da arquitetura **Bronze–Silver–Gold** para análise de fundos de investimento.  
+As evidências comprovam:
+- ✅ Ingestão e padronização dos dados  
+- ✅ Criação das tabelas analíticas  
+- ✅ Execução completa dos notebooks  
+- ✅ Análises quantitativas respondendo às perguntas de negócio  
+
+Este repositório documenta todo o processo de ponta a ponta, servindo como referência para projetos futuros de engenharia de dados.
 
