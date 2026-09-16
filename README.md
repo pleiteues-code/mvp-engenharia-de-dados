@@ -3,6 +3,14 @@ Análise de fundos de investimento
 Disciplina: Engenharia de Dados (40530010055_20260_01)
 
 ---
+## 🧠 Contexto de Negócios
+
+Investidores e analistas precisam comparar fundos de investimento considerando não apenas o retorno histórico, mas também o risco assumido e os custos envolvidos. Decisões baseadas apenas em retorno bruto podem levar a escolhas ineficientes, especialmente quando taxas elevadas reduzem o ganho líquido ou quando o risco é desproporcional ao retorno.
+
+Este MVP constrói um pipeline de dados na nuvem para organizar, tratar e analisar informações de fundos de investimento, permitindo avaliar relações entre risco, retorno, categoria e custo, de forma estruturada e reproduzível.
+
+---
+
 ## 🎯 Perguntas de Negócio (Objetivo do MVP)
 
 Este projeto foi desenvolvido para responder **quatro perguntas fundamentais** sobre fundos de investimento:
@@ -32,9 +40,30 @@ Essas perguntas orientam toda a arquitetura Bronze–Silver–Gold e justificam 
 
 - README.md — documentação principal do projeto
 
+## 📥 Coleta dos Dados
 
+O dataset utilizado neste MVP é o **Comprehensive Mutual Funds Dataset**, disponível publicamente no Kaggle.
 
+- **Origem:** Kaggle – *Comprehensive Mutual Funds Dataset*
+- **URL:** https://www.kaggle.com/datasets
+- **Autor:** Comunidade Kaggle
+- **Licença:** Open Data (uso permitido para fins educacionais)
+- **Formato:** CSV
+- **Registros:** ~1.800 fundos
+- **Colunas:** 14 atributos financeiros (retorno, risco, categoria, taxa, etc.)
 
+### 📌 Como os dados foram coletados
+
+O arquivo CSV foi baixado manualmente do Kaggle e utilizado como fonte bruta para a camada Bronze.  
+Nenhuma transformação foi aplicada antes da ingestão.
+
+### ☁️ Como o dataset chegou ao Databricks
+
+O arquivo `comprehensive_mutual_funds_data.csv` foi enviado manualmente para o Databricks através da interface:
+
+**Data → Add Data → Upload File → Create Table**
+
+Após o upload, o Databricks criou automaticamente a tabela Bronze:
 
 ---
 
@@ -55,6 +84,16 @@ O dataset escolhido contém informações de fundos de investimento, incluindo:
 - Contém **categorias distintas** (Debt, Equity, Hybrid, Other), possibilitando comparações.  
 - É um dataset **simples, limpo e adequado para um MVP**, sem necessidade de grandes integrações externas.  
 - Permite responder diretamente às quatro perguntas de negócio da disciplina.
+
+---
+
+Essa tabela representa os dados exatamente como vieram da fonte, sem qualquer alteração.
+
+### 📸 Evidências (serão adicionadas posteriormente)
+
+- Upload do arquivo no Databricks  
+- Tabela Bronze criada  
+- Visualização da tabela no Data Explorer
 
 ---
 
