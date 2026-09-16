@@ -67,6 +67,37 @@ O objetivo é responder quatro perguntas de negócio relacionadas a:
 - categorias de fundos  
 
 ---
+## 🏗️ Arquitetura do Projeto
+
+### 🔶 Bronze — Dados Brutos
+- Ingestão dos dados originais de fundos  
+- Nenhuma transformação aplicada  
+- Armazenamento fiel da fonte
+- O arquivo CSV foi obtido do Kaggle e carregado no ambiente Databricks. A partir do arquivo disponibilizado no diretório de dados, o notebook 01_bronze_ingestao_fundos.py realizou a leitura e persistiu os dados na camada Bronze em formato Delta.  
+
+---
+
+### 🔷 Silver — Dados Tratados
+- Limpeza e padronização  
+- Conversão de tipos  
+- Remoção de duplicatas  
+- Tratamento de nulos  
+- Normalização das colunas  
+- Preparação para análises  
+
+---
+
+### 🟡 Gold — Métricas e Modelagem
+Criação das tabelas analíticas:
+
+- `gold_risco_retorno`
+- `gold_sharpe_retorno`
+- `gold_categoria`
+- `gold_eficiencia`
+
+Cada tabela responde diretamente a uma pergunta de negócio.
+
+---
 ## 📚 Catálogo Técnico das Tabelas
 
 ### 🟤 Bronze — `comprehensive_mutual_funds_data`
@@ -192,37 +223,8 @@ Base para responder “O custo impacta negativamente o retorno?”.
 **Linhagem:** Silver → Gold (cálculo de eficiência e correlação custo-retorno)
 
 
-## 🏗️ Arquitetura do Projeto
-
-### 🔶 Bronze — Dados Brutos
-- Ingestão dos dados originais de fundos  
-- Nenhuma transformação aplicada  
-- Armazenamento fiel da fonte
-- O arquivo CSV foi obtido do Kaggle e carregado no ambiente Databricks. A partir do arquivo disponibilizado no diretório de dados, o notebook 01_bronze_ingestao_fundos.py realizou a leitura e persistiu os dados na camada Bronze em formato Delta.  
-
 ---
 
-### 🔷 Silver — Dados Tratados
-- Limpeza e padronização  
-- Conversão de tipos  
-- Remoção de duplicatas  
-- Tratamento de nulos  
-- Normalização das colunas  
-- Preparação para análises  
-
----
-
-### 🟡 Gold — Métricas e Modelagem
-Criação das tabelas analíticas:
-
-- `gold_risco_retorno`
-- `gold_sharpe_retorno`
-- `gold_categoria`
-- `gold_eficiencia`
-
-Cada tabela responde diretamente a uma pergunta de negócio.
-
----
 ## 📊 Resultado das Perguntas
 
 ### **1️⃣ Fundos com maior risco têm maior retorno?**
