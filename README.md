@@ -86,6 +86,89 @@ O objetivo é responder quatro perguntas de negócio relacionadas a:
 - Preparação para análises  
 
 ---
+## 📊 Qualidade dos Dados e Tratamentos Aplicados
+
+Durante a construção da camada Silver, foi realizada uma análise detalhada da qualidade dos dados, identificando problemas que poderiam comprometer as métricas da camada Gold. A seguir, são apresentados os principais achados, acompanhados de números reais encontrados na base.
+
+---
+
+### 🔹 1. Valores Nulos
+
+A análise revelou a presença de nulos em colunas importantes para cálculo de risco e retorno.
+
+| Coluna | Nulos | % Nulos |
+|--------|--------|---------|
+| sortino | 23 | 2.82% |
+| alpha | 42 | 5.16% |
+| sd | 24 | 2.95% |
+| beta | 42 | 5.16% |
+| sharpe | 23 | 2.82% |
+| returns_3yr | 21 | 2.58% |
+| returns_5yr | 167 | 20.52% |
+
+**Tratamento aplicado:**  
+- Remoção de registros com nulos em colunas essenciais  
+- Manutenção de nulos não críticos para análises específicas  
+- Garantia de consistência para cálculos estatísticos
+
+---
+
+### 🔹 2. Duplicatas
+
+A base Silver contém **814 registros** após padronização.  
+Não foram identificadas duplicatas após limpeza e normalização.
+
+**Tratamento aplicado:**  
+- Remoção de duplicatas na ingestão  
+- Garantia de contagem correta nas análises da camada Gold
+
+---
+
+### 🔹 3. Tipos incorretos
+
+Diversas colunas vieram como `string` no dataset original, impossibilitando cálculos numéricos.
+
+Colunas convertidas para tipos numéricos:
+
+- `expense_ratio`
+- `returns_1yr`, `returns_3yr`, `returns_5yr`
+- `sd`, `beta`, `sharpe`, `sortino`
+- `fund_size_cr`, `fund_age_yr`
+
+**Tratamento aplicado:**  
+Conversão via `cast()` para permitir cálculos estatísticos e agregações.
+
+---
+
+### 🔹 4. Categorias inconsistentes
+
+A coluna `category` apresentava variações textuais como:
+
+- “Equity”, “equity”, “EQUITY”
+- “Debt”, “DEBT”, “debt”
+
+**Tratamento aplicado:**  
+Padronização para valores únicos:  
+`Debt`, `Equity`, `Hybrid`, `Other`.
+
+---
+
+### 🔹 5. Outliers
+
+A análise estatística identificou valores extremos em:
+
+- `returns_1yr` (−0.1 a 9.8)
+- `returns_5yr` (−0.9 a 9.9)
+- `expense_ratio` (até 2.59)
+- `sd` (até 9.99)
+- `sharpe` (até 3.52)
+
+Além disso, a coluna `is_outlier` marcou **34 registros** como outliers, representando **4,18% da base Silver**.
+
+**Tratamento aplicado:**  
+Criação da coluna `is_outlier` para marcação dos registros fora do padrão, evitando interpretações indevidas sem remover dados da base.
+
+---
 
 ### 🟡 Gold — Métricas e Modelagem
 Criação das tabelas analíticas:
