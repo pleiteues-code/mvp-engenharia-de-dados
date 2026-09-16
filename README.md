@@ -67,6 +67,130 @@ O objetivo é responder quatro perguntas de negócio relacionadas a:
 - categorias de fundos  
 
 ---
+## 📚 Catálogo Técnico das Tabelas
+
+### 🟤 Bronze — `comprehensive_mutual_funds_data`
+**Descrição:**  
+Tabela bruta contendo os dados originais dos fundos de investimento conforme disponibilizados no Kaggle.  
+Sem transformações aplicadas, servindo como base para as camadas seguintes.
+
+**Linhagem:**  
+Fonte externa (Kaggle) → Bronze (Databricks Upload Manual)
+
+| Coluna | Tipo | Descrição | Domínio / Observações |
+|--------|------|------------|-----------------------|
+| scheme_name | string | Nome do fundo de investimento | Texto livre |
+| category | string | Categoria principal do fundo | Debt, Equity, Hybrid, Other |
+| expense_ratio | double | Taxa de administração | 0–5% |
+| returns_1yr | double | Retorno em 1 ano | -100% a +200% |
+| returns_3yr | double | Retorno em 3 anos | -100% a +200% |
+| returns_5yr | double | Retorno em 5 anos | -100% a +200% |
+| fund_size_cr | double | Tamanho do fundo em crores | Numérico |
+| fund_age_yr | double | Idade do fundo em anos | Numérico |
+| rating | double | Classificação do fundo | Escala numérica |
+| risk_level | string | Nível de risco | Baixo, Médio, Alto |
+
+---
+
+### ⚪ Silver — `fundos_silver`
+**Descrição:**  
+Tabela tratada e padronizada, contendo informações detalhadas sobre fundos, métricas de desempenho e indicadores de risco.  
+Utilizada para análises comparativas e correlações entre risco, retorno e eficiência.
+
+**Linhagem:**  
+Bronze → Silver  
+Transformações: limpeza de nulos, padronização de tipos, normalização de categorias, inclusão de campo `is_outlier`.
+
+| Coluna | Tipo | Descrição | Domínio / Observações |
+|--------|------|------------|-----------------------|
+| scheme_name | string | Nome do fundo | Texto livre |
+| min_sip | string | Valor mínimo para aplicação via SIP | Monetário |
+| min_lumpsum | string | Valor mínimo para aplicação única | Monetário |
+| expense_ratio | string | Taxa de administração | Percentual |
+| fund_size_cr | string | Tamanho do fundo | Numérico |
+| fund_age_yr | string | Idade do fundo | Numérico |
+| fund_manager | string | Gestor responsável | Texto livre |
+| sortino | string | Índice Sortino | ≥ 0 |
+| alpha | string | Alfa — desempenho ajustado ao benchmark | ± valores |
+| sd | string | Desvio padrão (volatilidade) | ≥ 0 |
+| beta | string | Beta — sensibilidade ao mercado | ≥ 0 |
+| sharpe | string | Índice Sharpe | ≥ 0 |
+| risk_level | string | Nível de risco | Baixo, Médio, Alto |
+| amc_name | string | Administradora do fundo | Texto livre |
+| rating | string | Classificação do fundo | Escala numérica |
+| category | string | Categoria principal | Debt, Equity, Hybrid, Other |
+| sub_category | string | Subcategoria | Texto livre |
+| returns_1yr | string | Retorno em 1 ano | Percentual |
+| returns_3yr | string | Retorno em 3 anos | Percentual |
+| returns_5yr | string | Retorno em 5 anos | Percentual |
+| is_outlier | string | Indicador de outlier | true / false |
+
+---
+
+### 🟡 Gold — Tabelas Analíticas
+
+#### `gold_risco_retorno`
+**Descrição:**  
+Tabela analítica que relaciona risco (desvio padrão) e retorno dos fundos.  
+Base para responder à pergunta “Fundos com maior risco têm maior retorno?”.
+
+| Coluna | Tipo | Descrição |
+|--------|------|------------|
+| scheme_name | string | Nome do fundo |
+| sd | double | Desvio padrão (risco) |
+| returns_1yr | double | Retorno em 1 ano |
+| categoria | string | Categoria do fundo |
+
+**Linhagem:** Silver → Gold (cálculo de correlação risco-retorno)
+
+---
+
+#### `gold_sharpe_retorno`
+**Descrição:**  
+Tabela analítica que relaciona o índice Sharpe com o retorno real dos fundos.  
+Base para avaliar eficiência versus retorno bruto.
+
+| Coluna | Tipo | Descrição |
+|--------|------|------------|
+| scheme_name | string | Nome do fundo |
+| sharpe | double | Índice Sharpe |
+| returns_1yr | double | Retorno em 1 ano |
+| categoria | string | Categoria do fundo |
+
+**Linhagem:** Silver → Gold (cálculo de correlação Sharpe-retorno)
+
+---
+
+#### `gold_categoria`
+**Descrição:**  
+Tabela que consolida o desempenho médio por categoria de fundo.  
+Base para responder “Quais categorias têm melhor retorno ajustado ao risco?”.
+
+| Coluna | Tipo | Descrição |
+|--------|------|------------|
+| categoria | string | Categoria principal |
+| retorno_medio | double | Retorno médio ajustado |
+| risco_medio | double | Desvio padrão médio |
+| eficiencia_media | double | Eficiência média calculada |
+
+**Linhagem:** Silver → Gold (agregação por categoria)
+
+---
+
+#### `gold_eficiencia`
+**Descrição:**  
+Tabela que relaciona custo (expense_ratio) e eficiência dos fundos.  
+Base para responder “O custo impacta negativamente o retorno?”.
+
+| Coluna | Tipo | Descrição |
+|--------|------|------------|
+| scheme_name | string | Nome do fundo |
+| expense_ratio | double | Taxa de administração |
+| eficiencia | double | Retorno ajustado ao custo |
+| categoria | string | Categoria do fundo |
+
+**Linhagem:** Silver → Gold (cálculo de eficiência e correlação custo-retorno)
+
 
 ## 🏗️ Arquitetura do Projeto
 
