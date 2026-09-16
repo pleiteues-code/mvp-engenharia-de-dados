@@ -86,87 +86,30 @@ O objetivo é responder quatro perguntas de negócio relacionadas a:
 - Preparação para análises  
 
 ---
-## 📊 Qualidade dos Dados e Tratamentos Aplicados
+## 📊 Qualidade dos Dados — Dimensões, Problemas e Tratamentos
 
-Durante a construção da camada Silver, foi realizada uma análise detalhada da qualidade dos dados, identificando problemas que poderiam comprometer as métricas da camada Gold. A seguir, são apresentados os principais achados, acompanhados de números reais encontrados na base.
+A camada Silver passou por uma análise completa de qualidade dos dados, garantindo consistência, completude e confiabilidade para as métricas da camada Gold. A tabela abaixo resume os principais problemas identificados, os tratamentos aplicados e o impacto direto na base.
 
----
-
-### 🔹 1. Valores Nulos
-
-A análise revelou a presença de nulos em colunas importantes para cálculo de risco e retorno.
-
-| Coluna | Nulos | % Nulos |
-|--------|--------|---------|
-| sortino | 23 | 2.82% |
-| alpha | 42 | 5.16% |
-| sd | 24 | 2.95% |
-| beta | 42 | 5.16% |
-| sharpe | 23 | 2.82% |
-| returns_3yr | 21 | 2.58% |
-| returns_5yr | 167 | 20.52% |
-
-**Tratamento aplicado:**  
-- Remoção de registros com nulos em colunas essenciais  
-- Manutenção de nulos não críticos para análises específicas  
-- Garantia de consistência para cálculos estatísticos
+| Dimensão          | Problema encontrado                               | Tratamento aplicado                     | Resultado / Impacto                                   |
+|-------------------|---------------------------------------------------|------------------------------------------|--------------------------------------------------------|
+| **Completude**    | Valores nulos em colunas críticas (`sortino`, `alpha`, `sd`, `beta`, `sharpe`, `returns_3yr`, `returns_5yr`) | Remoção ou manutenção conforme relevância analítica | **342 ocorrências tratadas** (somatório de nulos)      |
+| **Unicidade**     | Possível duplicidade após ingestão                | `dropDuplicates()`                       | **0 duplicatas** na camada Silver                     |
+| **Consistência**  | Categorias com nomenclaturas diferentes           | Padronização (`Debt`, `Equity`, `Hybrid`, `Other`) | Categorias normalizadas e prontas para agregações      |
+| **Tipagem**       | Campos numéricos armazenados como texto           | Conversão para `double` / `integer`      | Dados numéricos prontos para cálculos estatísticos     |
+| **Valores inválidos** | Presença de valores como `null`, `-0.1`, `-0.9` em retornos | Conversão para nulo ou marcação como outlier | **167 nulos em returns_5yr** tratados                  |
+| **Outliers**      | Valores extremos em `sd`, `beta`, `sharpe`, `returns_1yr`, `returns_5yr` | Criação da coluna `is_outlier`           | **34 registros sinalizados** (4,18% da base Silver)    |
 
 ---
 
-### 🔹 2. Duplicatas
+### ✔ Resultado geral dos tratamentos
 
-A base Silver contém **814 registros** após padronização.  
-Não foram identificadas duplicatas após limpeza e normalização.
+Após os tratamentos aplicados:
 
-**Tratamento aplicado:**  
-- Remoção de duplicatas na ingestão  
-- Garantia de contagem correta nas análises da camada Gold
+- A base Silver ficou **consistente**, **padronizada** e **adequada para análises estatísticas**.  
+- As métricas da camada Gold puderam ser calculadas sem erros.  
+- As correlações e agregações passaram a refletir a realidade dos dados.  
+- A marcação de outliers permitiu análises mais seguras, sem distorções.  
 
----
-
-### 🔹 3. Tipos incorretos
-
-Diversas colunas vieram como `string` no dataset original, impossibilitando cálculos numéricos.
-
-Colunas convertidas para tipos numéricos:
-
-- `expense_ratio`
-- `returns_1yr`, `returns_3yr`, `returns_5yr`
-- `sd`, `beta`, `sharpe`, `sortino`
-- `fund_size_cr`, `fund_age_yr`
-
-**Tratamento aplicado:**  
-Conversão via `cast()` para permitir cálculos estatísticos e agregações.
-
----
-
-### 🔹 4. Categorias inconsistentes
-
-A coluna `category` apresentava variações textuais como:
-
-- “Equity”, “equity”, “EQUITY”
-- “Debt”, “DEBT”, “debt”
-
-**Tratamento aplicado:**  
-Padronização para valores únicos:  
-`Debt`, `Equity`, `Hybrid`, `Other`.
-
----
-
-### 🔹 5. Outliers
-
-A análise estatística identificou valores extremos em:
-
-- `returns_1yr` (−0.1 a 9.8)
-- `returns_5yr` (−0.9 a 9.9)
-- `expense_ratio` (até 2.59)
-- `sd` (até 9.99)
-- `sharpe` (até 3.52)
-
-Além disso, a coluna `is_outlier` marcou **34 registros** como outliers, representando **4,18% da base Silver**.
-
-**Tratamento aplicado:**  
-Criação da coluna `is_outlier` para marcação dos registros fora do padrão, evitando interpretações indevidas sem remover dados da base.
 
 ---
 
