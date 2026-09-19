@@ -49,7 +49,7 @@ Essas perguntas orientam toda a arquitetura Bronze–Silver–Gold e justificam 
 O dataset utilizado neste MVP é o **Comprehensive Mutual Funds Dataset**, disponível publicamente no Kaggle.
 
 - **Origem:** Kaggle – *Comprehensive Mutual Funds Dataset*
-- **URL:** https://www.kaggle.com/datasets
+- **URL:** https://www.kaggle.com/datasets/ravibarnawal/mutual-funds-india-detailed
 - **Autor:** Comunidade Kaggle
 - **Licença:** Open Data (uso permitido para fins educacionais)
 - **Formato:** CSV
@@ -158,29 +158,29 @@ Utilizada para análises comparativas e correlações entre risco, retorno e efi
 Bronze → Silver  
 Transformações: limpeza de nulos, padronização de tipos, normalização de categorias, inclusão de campo `is_outlier`.
 
-| Coluna | Tipo | Descrição | Domínio / Observações |
-|--------|------|------------|-----------------------|
-| scheme_name | string | Nome do fundo | Texto livre |
-| min_sip | string | Valor mínimo para aplicação via SIP | Monetário |
-| min_lumpsum | string | Valor mínimo para aplicação única | Monetário |
-| expense_ratio | string | Taxa de administração | Percentual |
-| fund_size_cr | string | Tamanho do fundo | Numérico |
-| fund_age_yr | string | Idade do fundo | Numérico |
-| fund_manager | string | Gestor responsável | Texto livre |
-| sortino | string | Índice Sortino | ≥ 0 |
-| alpha | string | Alfa — desempenho ajustado ao benchmark | ± valores |
-| sd | string | Desvio padrão (volatilidade) | ≥ 0 |
-| beta | string | Beta — sensibilidade ao mercado | ≥ 0 |
-| sharpe | string | Índice Sharpe | ≥ 0 |
-| risk_level | string | Nível de risco | Baixo, Médio, Alto |
-| amc_name | string | Administradora do fundo | Texto livre |
-| rating | string | Classificação do fundo | Escala numérica |
-| category | string | Categoria principal | Debt, Equity, Hybrid, Other |
-| sub_category | string | Subcategoria | Texto livre |
-| returns_1yr | string | Retorno em 1 ano | Percentual |
-| returns_3yr | string | Retorno em 3 anos | Percentual |
-| returns_5yr | string | Retorno em 5 anos | Percentual |
-| is_outlier | string | Indicador de outlier | true / false |
+| Coluna | Tipo | Descrição |
+|--------|------|-----------|
+| scheme_name | string | Nome do fundo |
+| min_sip | string | Valor mínimo para aplicação via SIP |
+| min_lumpsum | string | Valor mínimo para aplicação única |
+| expense_ratio | double | Taxa de administração |
+| fund_size_cr | double | Tamanho do fundo |
+| fund_age_yr | double | Idade do fundo |
+| fund_manager | string | Gestor responsável |
+| sortino | double | Índice Sortino |
+| alpha | double | Alfa — desempenho ajustado ao benchmark |
+| sd | double | Desvio padrão (volatilidade) |
+| beta | double | Beta — sensibilidade ao mercado |
+| sharpe | double | Índice Sharpe |
+| risk_level | string | Nível de risco |
+| amc_name | string | Administradora do fundo |
+| rating | double | Classificação do fundo |
+| category | string | Categoria principal |
+| sub_category | string | Subcategoria |
+| returns_1yr | double | Retorno em 1 ano |
+| returns_3yr | double | Retorno em 3 anos |
+| returns_5yr | double | Retorno em 5 anos |
+| is_outlier | string | Indicador de outlier |
 
 ---
 
